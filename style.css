@@ -69,6 +69,7 @@ button{
     outline: none;
 }
 
+<<<<<<< HEAD
 /* Typography */
 h1{
     font-size: var(--font-large);
@@ -510,3 +511,6 @@ p{
         height: 80px;
     }
 }
+=======
+/* Typography */
+>>>>>>> parent of 7612aef (CSS : typpgraphy)
