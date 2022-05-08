@@ -20,7 +20,6 @@
   --color-dark-blue:#1360e6;
   --color-light-blue:#aecaf2;
 
-
     /* Font size */
   --font-large: 48px;
   --font-medium: 28px;
@@ -137,8 +136,8 @@ p{
 
 .navbar__toggle-btn{
     position: absolute;
-    top: 24px;
-    right: 32px;
+    top: 15px;
+    right: 5px;
     font-size: 24px;
     color: var(--color-white);
     display: none;
@@ -299,7 +298,6 @@ p{
     padding: 5px;
 }
 
-
 /* Work */
 .work__categories{
     margin: 40px;
@@ -393,17 +391,17 @@ p{
 }
 
 .project__description h3{
-    color: var(--color-white);
+    color: var(--color-orange);
 }
 
-.project__description h3::after{
+.project__description h3:after{
     content: '';
     display: block;
     position: relative;
     left: 50%;
-    width: 25px;
+    width: 50px;
     height: 2px;
-    margin-left: -12px;
+    transform: translateX(-50%);
     margin-top: 8px;
     background-color: var(--color-dark-white);
 }
@@ -480,9 +478,9 @@ p{
     position: fixed;
     bottom: 50px;
     right: 50px;
-    width: 70px;
-    height: 70px;
-    font-size: 50px;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
     color: var(--color-white);
     background-color: var(--color-dark-purple);
     border-radius: 50%;
@@ -504,6 +502,11 @@ p{
     #navbar{
         flex-direction: column;
         align-items: flex-start;
+        background-color: var(--color-purple);
+    }
+
+    #navbar.navbar--dark{
+        padding: 10px;
     }
 
     .navbar__menu{
@@ -511,6 +514,10 @@ p{
         text-align: center;
         width: 100%;
         display: none;
+    }
+
+    .navbar__menu.open{
+        display: block;
     }
 
     .about__majors{
