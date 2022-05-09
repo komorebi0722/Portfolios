@@ -67,12 +67,12 @@ workBtnContainer.addEventListener('click',(e)=>{
         return;
     }
 
-    // Remove selection from the previous item and select the new one
-    const active=document.querySelector('.category__btn.selected');
-    active.classList.remove('selected');
-    const target=
+// Remove selection from the previous item and select the new one
+   const active=document.querySelector('.category__btn.selected');
+   active.classList.remove('selected');
+   const target=
       e.target.nodeName==='BUTTON'?e.target:e.target.parentNode;
-    target.classList.add('selected');
+   target.classList.add('selected');
 
     projectContainer.classList.add('anim-out');
     setTimeout(()=>{
@@ -87,13 +87,57 @@ workBtnContainer.addEventListener('click',(e)=>{
     },300);
 });
 
-
-
-
-
-
-
+const sectionIds=[
+    '#home',
+    '#about',
+    '#skills',
+    '#work',
+    '#testimonials',
+    '#contact'
+];
+const sections=sectionIds.map(id=>document.querySelector(id));
+const navItems=sectionIds.map(id=>
+    document.querySelector(`[data-link="${id}"]`)
+);
+let selectedNavIndex=0;
+let selectedNavItem=navItems[0];
+function selectNavItem(selected){
+    selectedNavItem.classList.remove('active');
+    selectedNavItem=selected;
+    selectedNavItem.classList.add('active');
+};
 function scrollIntoView(selector){
     const scrollTO=document.querySelector(selector);
     scrollTO.scrollIntoView({behavior:'smooth'});
+    selectNavItem(navItems[sectionIds.indexOf(selector)]);
 };
+const observerOptions={
+    root:null,
+    rootMargin:'0px',
+    threshold:0.2,
+};
+const observerCallback=(entries,observer)=>{
+    entries.forEach(entry=>{
+        if(!entry.isIntersecting && entry.intersectionRatio>0){
+            const index=sectionIds.indexOf(`#${entry.target.id}`);
+            if(entry.boundingClientRect.y<0){
+                selectedNavIndex=index+1;
+            } else{
+                selectedNavIndex=index-1;
+            }
+        }
+    });
+};
+const observer=new IntersectionObserver(observerCallback,observerOptions);
+sections.forEach(section=>observer.observe(section));
+window.addEventListener('wheel',()=>{
+    if(window.scrollY===0){
+        selectedNavIndex=0;
+    } else if(
+        Math.round(window.scrollY+window.innerHeight)>=
+        document.body.clientHeight
+        ){
+        selectedNavIndex=navItems.length-1;
+    }
+    selectNavItem(navItems[selectedNavIndex]);
+});
